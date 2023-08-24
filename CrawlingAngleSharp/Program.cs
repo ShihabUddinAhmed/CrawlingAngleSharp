@@ -25,7 +25,7 @@ namespace CrawlingAngleSharp
             Console.WriteLine(aboutText.Text().Trim());
             doc.Close();
 
-            var url1 = "https://www.crunchbase.com/organization/urocure";
+            var url1 = "https://www.crunchbase.com/organization/allina-health-a9e5";
 
             var doc1 = await context.OpenAsync(url1);
             // var title = doc.QuerySelector("title").InnerHtml;
@@ -43,19 +43,53 @@ namespace CrawlingAngleSharp
             Console.WriteLine(moneyRaised.Text().Trim());
             Console.WriteLine(LastFundingType.Text().Trim());
             Console.WriteLine(phoneNumber.Text().Trim("Phone Number ".ToCharArray()));
+
             //foreach (var par in phoneNumber)
             //{
             //    Console.WriteLine("For Phone Number \n\n\n" + par.Text().Trim());
             //}
             doc1.Close();
 
-            Console.Read();
+            //Console.Read();
             //var pars = doc.QuerySelectorAll("p");
 
             //foreach (var par in pars)
             //{
             //    Console.WriteLine(par.Text().Trim());
             //}
+
+            //From LinkedIn Pages
+            Console.WriteLine("\n\nLinkedIn Parsing:\n\n");
+            var url2 = "https://www.linkedin.com/company/zurich-medical-inc-/";
+
+            var doc2 = await context.OpenAsync(url2);
+            // var title = doc.QuerySelector("title").InnerHtml;
+            var title2 = doc2.Title;
+
+            Console.WriteLine(title2);
+
+            var website = doc2.QuerySelector("[data-test-id='about-us__website']")?.QuerySelector("dd")?.QuerySelector("a");
+            var industries = doc2.QuerySelector("[data-test-id='about-us__industries']")?.QuerySelector("dd");
+            var employeeSize = doc2.QuerySelector("[data-test-id='about-us__size']")?.QuerySelector("dd");
+            var headquaters = doc2.QuerySelector("[data-test-id='about-us__headquarters']")?.QuerySelector("dd");
+            var organizationType = doc2.QuerySelector("[data-test-id='about-us__organizationType']")?.QuerySelector("dd");
+            var foundDate = doc2.QuerySelector("[data-test-id='about-us__foundedOn']")?.QuerySelector("dd");
+            var funding = doc2.QuerySelector("[data-test-id='funding']")?.QuerySelector("[id='external-link-last-round']");
+            Console.WriteLine(website.Text().Trim());
+            Console.WriteLine(industries.Text().Trim());
+            Console.WriteLine(employeeSize.Text().Trim());
+            Console.WriteLine(headquaters.Text().Trim());
+            Console.WriteLine(organizationType.Text().Trim());
+            Console.WriteLine(foundDate.Text().Trim());
+            Console.WriteLine(funding.Text().Trim());
+            
+            //foreach (var par in phoneNumber)
+            //{
+            //    Console.WriteLine("For Phone Number \n\n\n" + par.Text().Trim());
+            //}
+            doc2.Close();
+
+            Console.Read();
         }
     }
 }
